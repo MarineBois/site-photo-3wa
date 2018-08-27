@@ -10,7 +10,7 @@
 
         <h1>Bienvenue <?= htmlspecialchars($_SESSION['prenomUser']); ?> </h1>
         <a href="php/deconnexion.php" class="smallbtn">Déconnexion</a>
-
+        <a href="index.php" class="smallbtn">Retour à l'accueil</a>
         <form class="container" onsubmit="addPhoto();return false;">
             <h2 id="photo">Ajouter une nouvelle photographie</h2>
             <div class="alert alert-danger displayNone" role="alert"></div>
@@ -92,7 +92,7 @@
 
 
     <?php else : ?>
-        <a href="connexion.phtml" class="btn btn-primary"> Se connecter </a>
+        <a href="connexion.php" class="btn btn-primary"> Se connecter </a>
     <?php endif ?>    
         
 </main> 

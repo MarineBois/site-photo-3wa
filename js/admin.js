@@ -2,8 +2,13 @@ $('#customFile').change(function () {
     $(".custom-file-label").text($('#customFile').get(0).files[0].name);
 });
 
+function RefreshPage(){
+    location.reload();
+}
+
 function addCategorie() {
     $('.alert-danger').remove();
+    $('.alert-success').remove();
     var libelle = $('#libelle').val();
 
     if (libelle.trim().length > 0 ) {
@@ -14,18 +19,24 @@ function addCategorie() {
             dataType:'json',
             success: function(data){
                 if (data.result == true) {
-                    $('<div class="alert alert-success" role="alert">'+data.message+'</div>').insertAfter("h2#categorie");
+                    $('.alert-success').show();
+                    $('<div class="alert alert-success" role="alert"><p>'+data.message+'</p><small>La liste se rafraichira dans 5 secondes</small></div>').insertAfter("h2#categorie");
+                    setTimeout(RefreshPage, 5000);
                 } else {
-                    $('<div class="alert alert-danger" role="alert">'+data.message+'</div>').insertAfter("h2#categorie");
+                    $('.alert-danger').show();
+                    $('<div class="alert alert-danger" role="alert"><p>'+data.message+'</p></div>').insertAfter("h2#categorie");
                 }
             },
         });
     }else {
+        $('.alert-danger').show();
         $('<div class="alert alert-danger" role="alert">Merci d\'entrer une valeur</div>').insertAfter("h2#categorie");
     }
 }
 
 function addPhoto() {
+    $('.alert-danger').hide();
+    $('.alert-success').hide();
     var nom = $('#nom').val();
     var description = $('#description').val();
     var categorie = $('#categorie').val();
@@ -44,7 +55,8 @@ function addPhoto() {
             success : function (data) {
                 if (data.result == true) {
                     $('.alert-success').show();
-                    $('.alert-success').html(data.message);
+                    $('.alert-success').html('<p>'+data.message+'</p><small>La liste se rafraichira dans 5 secondes</small>');
+                    setTimeout(RefreshPage, 5000);
                 } else {
                     $('.alert-danger').show();
                     $('.alert-danger').html(data.message);
